@@ -1,8 +1,9 @@
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import generics
 
 from .models import UserNew
-from .serializers import GetUserNewSerializer, GetUserNewPublicSerializer
+from .serializers import GetUserNewPrivatSerializer, GetUserNewPublicSerializer, UserAvatarUpdateSerializer
 
 
 class UserNewPublicView(ModelViewSet):
@@ -12,10 +13,19 @@ class UserNewPublicView(ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 
-class UserNewView(ModelViewSet):
+class UserNewPrivatView(ModelViewSet):
     """Вивід профелю користувача (приватний)"""
-    serializer_class = GetUserNewSerializer
+    serializer_class = GetUserNewPrivatSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return UserNew.objects.filter(id=self.request.user.id)
+
+
+class UserNewAvatarUpdateView(generics.UpdateAPIView):
+    """Редагування аватару користувача"""
+
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = UserNew.objects.all()
+    serializer_class = UserAvatarUpdateSerializer
+

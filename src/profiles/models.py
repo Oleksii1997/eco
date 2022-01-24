@@ -16,7 +16,7 @@ class UserNew(AbstractUser):
                                            validate_size_image])
     gender = models.CharField(verbose_name="Стать", max_length=16, choices=GENDER_CHOICE)
     bio = models.TextField(verbose_name="Про мене", max_length=1000, blank=True)
-    phone = models.CharField(verbose_name="Номер телефону", max_length=16, unique=True)
+    phone = models.CharField(verbose_name="Номер телефону", max_length=16, blank=True, null=True, unique=True)
     birthday = models.DateField(verbose_name="Дата народження", blank=True, null=True)
 
     def __str__(self):

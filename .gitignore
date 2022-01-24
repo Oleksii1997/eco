@@ -1,4 +1,6 @@
 # sequrity
+local_settings.py
+
 !*media/.gitkeep
 media/*
 

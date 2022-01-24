@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path("profile/<int:pk>/", views.UserNewView.as_view({'get': 'retrieve', 'put': 'update'})),
-    path("<int:pk>/", views.UserNewPublicView.as_view({'get': 'retrieve'})),
+    path("my/profile/<int:pk>/", views.UserNewPrivatView.as_view({'get': 'retrieve', 'put': 'update'})),
+    path("public/profile/<int:pk>/", views.UserNewPublicView.as_view({'get': 'retrieve'})),
+    path("update/avatar/<int:pk>/", views.UserNewAvatarUpdateView.as_view()),
 ]

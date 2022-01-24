@@ -2,21 +2,9 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-jq9%7zo)@dpvzmf0nv4*(_)_h66n-!wgk+lah59$1stc%-u(j2'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -34,6 +22,8 @@ INSTALLED_APPS = [
     "corsheaders",
 
     'src.profiles',
+
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +119,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'profiles.UserNew'
 
+#Emails smtp
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'noreplyeco22@gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = 'A7Jgdo@46klpO12'
+EMAIL_USE_TLS = True
+FROM_EMAIL = "noreplyeco22@gmail.com"
+EMAIL_ADMIN = "noreplyeco22@gmail.com"
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -145,7 +145,7 @@ DJOSER = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60*24),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -175,4 +175,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",
     "http://127.0.0.1:8001",
 ]
+
+try:
+    from .local_settings import *
+except ImportError:
+    from .prod_settings import *
 

@@ -18,6 +18,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', include('src.profiles.urls')),
+    path('event/', include('src.event.urls')),
+    path('location/', include('src.location.urls')),
 
 
     re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),

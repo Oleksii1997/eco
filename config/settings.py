@@ -20,8 +20,13 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     "corsheaders",
+    'mptt',
+    'import_export',
+    'django_filters',
 
     'src.profiles',
+    'src.event',
+    'src.location',
 
     'django_cleanup',
 ]
@@ -134,6 +139,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+
+    #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    #'PAGE_SIZE': 20,
+
+    'DATETIME_FORMAT': "%d.%m.%Y %H:%M:%S",
 }
 
 DJOSER = {

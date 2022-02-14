@@ -51,6 +51,11 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.id}"
 
+    @property
+    def count_subscribers(self):
+        """Підраховує кількість підписників на подію"""
+        return self.subscribers.all().count()
+
 
 class EventSocialLink(models.Model):
     """Посилання на події в соціальних мережах"""
@@ -70,18 +75,4 @@ class EventSocialLink(models.Model):
     def __str__(self):
         return f"{self.id}"
 
-
-class EventSubscriber(models.Model):
-    """Підписники до подій"""
-    event = models.ForeignKey(Event, verbose_name="Подія", on_delete=models.CASCADE, related_name='subscribers')
-    user = models.ForeignKey(UserNew, verbose_name="Підписник", on_delete=models.CASCADE, related_name='my_subscribe')
-    confirmation = models.BooleanField(verbose_name="Участь в події підтверджена організатором?", default=False)
-    created = models.DateTimeField(verbose_name="Дата створення події", auto_now_add=True, auto_now=False)
-
-    class Meta:
-        verbose_name = 'Учасник події'
-        verbose_name_plural = 'Учасники подій'
-
-    def __str__(self):
-        return f"{self.id}"
 

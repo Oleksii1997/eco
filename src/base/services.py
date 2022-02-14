@@ -21,9 +21,30 @@ def validate_size_image(file_obj):
 
 
 class EventListSetPagination(PageNumberPagination):
+    """Пагінатор списку подій"""
     page_size = 20
     page_size_query_param = 'page_size'
-    max_page_size = 1000
+    max_page_size = 50
+
+    def get_paginated_response(self, data):
+
+        return Response(
+            {
+                "links": {
+                    'next': self.get_next_link(),
+                    'previous': self.get_previous_link()
+                },
+                'count': self.page.paginator.count,
+                'results': data
+            }
+        )
+
+
+class EventSubscribersPagination(PageNumberPagination):
+    """Пагінатор підписників на подію"""
+    page_size = 1
+    page_size_query_param = 'page_size'
+    max_page_size = 50
 
     def get_paginated_response(self, data):
 

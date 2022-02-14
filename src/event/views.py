@@ -2,8 +2,8 @@ from rest_framework import generics, filters, viewsets
 from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import EventCategorySerializers, ShortInfoEventSerializer, EventDetailSerializer, \
-                         EventCreateUpdateSerializer, EventSocialLinkSerializer, EventSubscribeSerializer
-from .models import EventCategory, Event, EventSocialLink, EventSubscriber
+                         EventCreateUpdateSerializer, EventSocialLinkSerializer
+from .models import EventCategory, Event, EventSocialLink
 from src.base.services import EventListSetPagination
 from src.base.services_filter import EventFilter
 
@@ -46,9 +46,3 @@ class EventSocialLinkCreateViewSet(viewsets.ModelViewSet):
     queryset = EventSocialLink.objects.all()
     serializer_class = EventSocialLinkSerializer
 
-
-class EventSubscribeViewSet(viewsets.ModelViewSet):
-    """Підписка/відписка користувача до події"""
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = EventSubscriber.objects.all()
-    serializer_class = EventSubscribeSerializer

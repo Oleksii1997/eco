@@ -40,7 +40,8 @@ class GetUserNewPublicSerializer(serializers.ModelSerializer):
 
 class ShortUserNewPublicProfileSerializer(serializers.ModelSerializer):
     """Серіалізатор короткої інформації про профіль користувача
-    для відображення при серіалізації подій"""
+    для відображення при серіалізації подій
+    та серіалізації підписників на подію"""
     class Meta:
         model = UserNew
         fields = ('id', 'first_name', 'last_name', 'avatar')

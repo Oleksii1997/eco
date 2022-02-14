@@ -14,7 +14,4 @@ urlpatterns = [
     path('link/create', views.EventSocialLinkCreateViewSet.as_view({'post': 'create'})),
     path('link/update/<int:pk>', views.EventSocialLinkCreateViewSet.as_view({'put': 'update'})),
     path('link/delete/<int:pk>', views.EventSocialLinkCreateViewSet.as_view({'delete': 'destroy'})),
-
-    path('subscribe/', views.EventSubscribeViewSet.as_view({'post': 'create'})),
-    path('unsubscribe/<int:pk>', views.EventSubscribeViewSet.as_view({'delete': 'destroy'}))
 ]

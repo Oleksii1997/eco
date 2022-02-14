@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import EventCategory, Event, EventSocialLink, EventSubscriber
+from .models import EventCategory, Event, EventSocialLink
 from src.profiles.serializers import ShortUserNewPublicProfileSerializer
 from src.location.serializers import CityListSerializers
+from src.event_subscribers.serializers import ListSubscriberSerializer
 
 
 class FilterCategoryListSerializers(serializers.ListSerializer):
@@ -72,10 +73,12 @@ class EventDetailSerializer(serializers.ModelSerializer):
     city = CityListSerializers()
     category = CategoryNameSerializer()
     social_link = EventSocialLinkSerializer(many=True, read_only=True)
+    count_subscribers = serializers.ReadOnlyField()
 
     class Meta:
         model = Event
         fields = ('id',
+                  'count_subscribers',
                   'organizer',
                   'name',
                   'category',
@@ -107,19 +110,4 @@ class EventCreateUpdateSerializer(serializers.ModelSerializer):
                   'auto_confirmation',
                   'is_active')
 
-
-class EventSubscribeSerializer(serializers.ModelSerializer):
-    """Серіалізатор для підписки/відписки користувачів"""
-
-    class Meta:
-        model = EventSubscriber
-        fields = ('id', 'event', 'user', 'confirmation')
-
-    def create(self, validated_data):
-        rating, _ = EventSubscriber.objects.update_or_create(
-            event=validated_data.get('event', None),
-            user=validated_data.get('user', None),
-            defaults={'confirmation': validated_data.get('event', None).auto_confirmation}
-        )
-        return rating
 

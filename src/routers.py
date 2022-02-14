@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include('src.profiles.urls')),
     path('event/', include('src.event.urls')),
     path('location/', include('src.location.urls')),
+    path('follower/', include('src.event_subscribers.urls')),
 
 
     re_path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),

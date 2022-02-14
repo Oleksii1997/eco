@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'src.profiles',
     'src.event',
     'src.location',
+    'src.event_subscribers',
 
     'django_cleanup',
 ]
